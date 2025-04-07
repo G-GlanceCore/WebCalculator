@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="light">
+    <div class="calculator">
+        <div class="toggle">
+            <label class="switch">
+                <input type="checkbox" id="modeToggle">
+                <span class="slider"></span>
+            </label>
+            <span id="modeLabel">Switch to Dark</span>
+        </div>
+
+        <div class="display">
+            <div id="expression">45 x 24</div>
+            <div id="result">1080</div>
+        </div>
+
+        <div class="buttons">
+            <button>C</button><button>( )</button><button>%</button><button>/</button>
+            <button>7</button><button>8</button><button>9</button><button>x</button>
+            <button>4</button><button>5</button><button>6</button><button>-</button>
+            <button>1</button><button>2</button><button>3</button><button>+</button>
+            <button>+/-</button><button>0</button><button>.</button><button>=</button>
+        </div>
+    </div>
+
+    <script>
+        const toggle = document.getElementById("modeToggle");
+        const body = document.body;
+        const label = document.getElementById("modeLabel");
+
+        toggle.addEventListener("change", () => {
+            body.classList.toggle("dark");
+            body.classList.toggle("light");
+            label.textContent = body.classList.contains("dark") ? "Switch to Light" : "Switch to Dark";
+        });
+    </script>
+</body>
+</html>
