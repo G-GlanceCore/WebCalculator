@@ -16,12 +16,13 @@
         </div>
 
         <div class="display">
-            <div id="expression">45 x 24</div>
+            <div id="expression" contenteditable="true">45 x 24</div>
             <div id="result">1080</div>
         </div>
 
         <div class="buttons">
-            <button>C</button><button>( )</button><button>%</button><button>/</button>
+            <button id="backspace">⌫</button>
+            <button>C</button><button>( )</button><button>%</button><button>÷</button>
             <button>7</button><button>8</button><button>9</button><button>x</button>
             <button>4</button><button>5</button><button>6</button><button>-</button>
             <button>1</button><button>2</button><button>3</button><button>+</button>
@@ -29,16 +30,127 @@
         </div>
     </div>
 
-    <script>
-        const toggle = document.getElementById("modeToggle");
-        const body = document.body;
-        const label = document.getElementById("modeLabel");
 
-        toggle.addEventListener("change", () => {
-            body.classList.toggle("dark");
-            body.classList.toggle("light");
-            label.textContent = body.classList.contains("dark") ? "Switch to Light" : "Switch to Dark";
+
+    <script>
+    const toggle = document.getElementById("modeToggle");
+    const body = document.body;
+    const label = document.getElementById("modeLabel");
+
+    toggle.addEventListener("change", () => {
+        body.classList.toggle("dark");
+        body.classList.toggle("light");
+        label.textContent = body.classList.contains("dark") ? "Switch to Light" : "Switch to Dark";
+    });
+
+
+
+
+    const expressionDisplay = document.getElementById("expression");
+    const resultDisplay = document.getElementById("result");
+    const buttons = document.querySelectorAll(".buttons button");
+
+    let expression = "";
+
+    function updateDisplay() {
+        expressionDisplay.textContent = expression || "0";
+        try {
+            const formatted = expression.replace(/x/g, '*').replace(/÷/g, '/');
+            const result = eval(formatted);
+            resultDisplay.textContent = result ?? "0";
+        } catch {
+            resultDisplay.textContent = "Error";
+        }
+    }
+
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            const value = button.textContent;
+
+            switch (value) {
+                case "C":
+                    expression = "";
+                    break;
+                case "=":
+                    try {
+                        expression = eval(expression.replace(/x/g, '*').replace(/÷/g, '/')).toString();
+                    } catch {
+                        expression = "";
+                        resultDisplay.textContent = "Error";
+                    }
+                    break;
+                case "x":
+                    expression += "*";
+                    break;
+                case "÷":
+                    expression += "/";
+                    break;
+                case "+/-":
+                    if (expression) {
+                        if (expression.startsWith("-")) {
+                            expression = expression.slice(1);
+                        } else {
+                            expression = "-" + expression;
+                        }
+                    }
+                    break;
+                case "( )":
+                    if ((expression.match(/\(/g) || []).length > (expression.match(/\)/g) || []).length) {
+                        expression += ")";
+                    } else {
+                        expression += "(";
+                    }
+                    break;
+                default:
+                    expression += value;
+            }
+
+            updateDisplay();
         });
-    </script>
+    });
+
+    // Initialize with default expression
+    //expression = "45*24";
+    updateDisplay();
+
+
+
+
+
+
+    document.addEventListener("keydown", (e) => {
+        const key = e.key;
+
+        // Allow numbers, operators, and control keys
+        const validKeys = "0123456789+-*/().%";
+        
+        if (validKeys.includes(key)) {
+            expression += key;
+        } else if (key === "Enter") {
+            e.preventDefault();
+            try {
+                expression = eval(expression).toString();
+            } catch {
+                expression = "";
+                resultDisplay.textContent = "Error";
+            }
+        } else if (key === "Backspace") {
+            expression = expression.slice(0, -1);
+        } else if (key === "Escape") {
+            expression = "";
+        }
+
+        updateDisplay();
+    });
+
+
+
+
+
+
+
+
+</script>
+
 </body>
 </html>
