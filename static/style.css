@@ -127,3 +127,13 @@ body.dark button {
     font-size: 32px;
     font-weight: bold;
 }
+
+/* Input text box Styles */
+#expression {
+    width: 100%;
+    font-size: 24px;
+    height: 40px;
+    text-align: right;
+    margin-bottom: 5px;
+    padding: 5px;
+}
