@@ -1,12 +1,17 @@
+// DOM elements
 const exprInput = document.getElementById("expression");
 const answerOutput = document.getElementById("answer");
 
+// Valid operators 
+// We define what counts as an operator. % is special, so we track it separately.
 const allOperators = ["+", "-", "*", "/", "%"];
 const mathOperators = ["+", "-", "*", "/"];
 
+// Listen to typing input
 exprInput.addEventListener("input", updateLiveAnswer);
 document.addEventListener("keydown", handleKeyboardInput);
 
+// Recalculates on each input
 function updateLiveAnswer() {
     try {
     const transformed = transformPercent(exprInput.value);
@@ -21,6 +26,7 @@ function updateLiveAnswer() {
     }
 }
 
+// Evaluate expression on =
 function calculate() {
     try {
     const result = eval(transformPercent(exprInput.value));
@@ -32,20 +38,25 @@ function calculate() {
     }
 }
 
+// Replace numbers with their percentage equivalent
+// This turns any number%intonumber * 0.01 so we can calculate it.
 function transformPercent(expr) {
     return expr.replace(/(\d+(\.\d+)?)%/g, (_, num) => `(${num}*0.01)`);
 }
 
+// Handles input, cursor control and validation
 function inputSymbol(symbol) {
     const cursorPos = exprInput.selectionStart;
-    const value = exprInput.value;
-    const before = value.slice(0, cursorPos);
-    const after = value.slice(cursorPos);
-    const lastChar = before.slice(-1);
-    const nextChar = after[0] || "";
+    const value     = exprInput.value;
+    const before    = value.slice(0, cursorPos);
+    const after     = value.slice(cursorPos);
+    const lastChar  = before.slice(-1);
+    const nextChar  = after[0] || "";
+
     const isMathOperator = c => mathOperators.includes(c);
     const isAnyOperator = c => allOperators.includes(c);
 
+    // Special percent rules
     if (symbol === "%") {
     const isPrevPercent = lastChar === "%";
     const isNextPercent = nextChar === "%";
@@ -53,23 +64,30 @@ function inputSymbol(symbol) {
     const isNextDigit = /\d/.test(nextChar);
     const isStartInvalid = cursorPos === 0 && !isMathOperator(nextChar);
 
-    // Allow only one % per number, not after operator, not before number at start
-    if (isPrevPercent || isNextPercent || isPrevOperator || isStartInvalid) return;
+        if (
+            isPrevPercent   ||  // ❌ prevent after %
+            isNextPercent   ||  // ❌ prevent before %
+            isPrevOperator  ||  // ❌ no +%
+            isStartInvalid      // ❌ cannot start with % unless before operator
+        ) 
+        return;
     }
 
+    // Allow only one % per number, not after operator, not before number at start
     if (cursorPos === 0 && allOperators.includes(symbol) && symbol !== "%") return;
 
+    // Replace or insert operator
     if (isMathOperator(symbol)) {
-    if (isMathOperator(lastChar)) {
-        exprInput.value = before.slice(0, -1) + symbol + after;
-        setCursor(cursorPos);
-    } else if (isMathOperator(nextChar)) {
-        exprInput.value = before + symbol + after.slice(1);
-        setCursor(cursorPos + 1);
-    } else {
-        exprInput.value = before + symbol + after;
-        setCursor(cursorPos + 1);
-    }
+        if (isMathOperator(lastChar)) {
+            exprInput.value = before.slice(0, -1) + symbol + after;
+            setCursor(cursorPos);
+        } else if (isMathOperator(nextChar)) {
+            exprInput.value = before + symbol + after.slice(1);
+            setCursor(cursorPos + 1);
+        } else {
+            exprInput.value = before + symbol + after;
+            setCursor(cursorPos + 1);
+        }
     } else {
     exprInput.value = before + symbol + after;
     setCursor(cursorPos + 1);
@@ -78,6 +96,7 @@ function inputSymbol(symbol) {
     updateLiveAnswer();
 }
 
+// Deletes the character before cursor
 function backspace() {
     const cursorPos = exprInput.selectionStart;
     if (cursorPos === 0) return;
@@ -88,16 +107,19 @@ function backspace() {
     updateLiveAnswer();
 }
 
+// Set cursor position
 function setCursor(pos) {
     exprInput.setSelectionRange(pos, pos);
     exprInput.focus();
 }
 
+// Clears input and preview
 function clearDisplay() {
     exprInput.value = "";
     answerOutput.textContent = "";
 }
 
+// Negates the result
 function toggleSign() {
     try {
     const result = eval(transformPercent(exprInput.value));
@@ -106,6 +128,7 @@ function toggleSign() {
     } catch {}
 }
 
+// Allows keyboard typing
 function handleKeyboardInput(e) {
     const key = e.key;
     if (/\d/.test(key) || key === "." || allOperators.includes(key)) {
@@ -123,6 +146,7 @@ function handleKeyboardInput(e) {
     }
 }
 
+// Check if last character is operator
 function endsWithMathOperator(expr) {
     return mathOperators.includes(expr.trim().slice(-1));
 }
