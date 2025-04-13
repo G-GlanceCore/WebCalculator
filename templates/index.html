@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>WebAppCalculator</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='media-btn-style.css') }}">
+
 </head>
 <body class="light">
     <div class="calculator">
@@ -12,17 +16,19 @@
                 <input type="checkbox" id="modeToggle">
                 <span class="slider"></span>
             </label>
-            <span id="modeLabel">Switch to Dark</span>
+            <span id="modeLabel" style="font-size: 11px; text-align: left;">Switch to Dark</span>
+
+            <a href="https://www.facebook.com/Gregiefel" target="_blank" class="fancy-facebook-btn">
+              <i class="fab fa-facebook-f"></i> Facebook
+            </a>
+            <a href="https://github.com/G-GlanceCore/WebCalculator" target="_blank" class="fancy-github-btn">
+              <i class="fab fa-github"></i> Developer
+            </a>
         </div>
 
-        <div class="display">
-<!--
-            <div id="expression" contenteditable="true"></div>
-            <div id="answer"></div>
--->
+        <div class="display"><!--<div id="expression" contenteditable="true"></div><div id="answer"></div>-->
             <input type="text" id="expression" maxlength="30" />
             <div id="answer" style="font-size:40px"></div>
-
         </div>
 
         <div class="buttons">

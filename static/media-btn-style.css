@@ -1,0 +1,59 @@
+.fancy-facebook-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #3b5998, #4c70ba);
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    font-size: 9px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .fancy-facebook-btn:hover {
+    background: linear-gradient(135deg, #4c70ba, #3b5998);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transform: translateY(-1px);
+  }
+
+  .fancy-facebook-btn i {
+    font-size: 14px;
+  }
+
+
+
+
+
+
+  
+  .fancy-github-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, #24292e, #2f363d);
+    color: white;
+    border: none;
+    padding: 6px 14px;
+    font-size: 9px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .fancy-github-btn:hover {
+    background: linear-gradient(135deg, #2f363d, #24292e);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transform: translateY(-1px);
+  }
+
+  .fancy-github-btn i {
+    font-size: 14px;
+  }
