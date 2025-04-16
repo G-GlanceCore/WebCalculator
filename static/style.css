@@ -17,9 +17,9 @@ body {
 
 .toggle {
     display: flex;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 /* Switch Button */

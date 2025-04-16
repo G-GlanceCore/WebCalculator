@@ -1,80 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>WebAppCalculator</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8">
+  <title>WebAppCalculator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='media-btn-style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='media-btn-style.css') }}">
 
 </head>
 <body class="light">
-    <div class="calculator">
-        <div class="toggle">
-            <label class="switch">
-                <input type="checkbox" id="modeToggle">
-                <span class="slider"></span>
-            </label>
-            <span id="modeLabel" style="font-size: 11px; text-align: left;">Switch to Dark</span>
-
-            <a href="https://www.facebook.com/Gregiefel" target="_blank" class="fancy-facebook-btn">
-              <i class="fab fa-facebook-f"></i> Facebook
-            </a>
-            <a href="https://github.com/G-GlanceCore/WebCalculator" target="_blank" class="fancy-github-btn">
-              <i class="fab fa-github"></i> Developer
-            </a>
-        </div>
-
-        <div class="display"><!--<div id="expression" contenteditable="true"></div><div id="answer"></div>-->
-            <input type="text" id="expression" maxlength="30" />
-            <div id="answer" style="font-size:40px"></div>
-        </div>
-
-        <div class="buttons">
-            <button class="control" onclick="clearDisplay()">C</button>
-            <button class="operator" onclick="inputSymbol('%')">%</button>
-            <button onclick="backspace()">⌫</button>
-            <button class="operator" onclick="inputSymbol('/')">÷</button>
-      
-            <button onclick="inputSymbol('7')">7</button>
-            <button onclick="inputSymbol('8')">8</button>
-            <button onclick="inputSymbol('9')">9</button>
-            <button class="operator" onclick="inputSymbol('*')">×</button>
-      
-            <button onclick="inputSymbol('4')">4</button>
-            <button onclick="inputSymbol('5')">5</button>
-            <button onclick="inputSymbol('6')">6</button>
-            <button class="operator" onclick="inputSymbol('-')">−</button>
-      
-            <button onclick="inputSymbol('1')">1</button>
-            <button onclick="inputSymbol('2')">2</button>
-            <button onclick="inputSymbol('3')">3</button>
-            <button class="operator" onclick="inputSymbol('+')">+</button>
-      
-            <button onclick="toggleSign()">+/-</button>
-            <button onclick="inputSymbol('0')">0</button>
-            <button onclick="inputSymbol('.')">.</button>
-            <button class="equal" onclick="calculate()">=</button>
-        </div>
+  <div class="calculator">
+    <div class="toggle">
+      <label class="switch">
+        <input type="checkbox" id="modeToggle">
+        <span class="slider"></span>
+      </label>
+      <span id="modeLabel" style="font-size: 15px; padding-left: 5px;">Switch to Dark</span>
     </div>
 
 
+    <a href="https://github.com/G-GlanceCore/WebCalculator" target="_blank" class="fancy-btn github">
+      <i class="fab fa-github"></i>
+      <span>Developer</span>
+    </a>
+    <a href="https://www.linkedin.com/in/gregorio-rasonabe-66ab75235/" target="_blank" class="fancy-btn linkedin">
+      <i class="fab fa-linkedin-in"></i>
+      <span>Connect</span>
+    </a>
+    <a href="https://www.facebook.com/Gregiefel" target="_blank" class="fancy-btn facebook">
+      <i class="fab fa-facebook-f"></i>
+      <span>Facebook</span>
+    </a>
 
-    <script>
-    const toggle = document.getElementById("modeToggle");
-    const body = document.body;
-    const label = document.getElementById("modeLabel");
 
-    toggle.addEventListener("change", () => {
-        body.classList.toggle("dark");
-        body.classList.toggle("light");
-        label.textContent = body.classList.contains("dark") ? "Switch to Light" : "Switch to Dark";
-    });
-    </script>
+    <div class="display"><!--<div id="expression" contenteditable="true"></div><div id="answer"></div>-->
+        <input type="text" id="expression" maxlength="30" />
+        <div id="answer" style="font-size:40px;"></div>
+    </div>
+
+    <div class="buttons">
+        <button class="control" onclick="clearDisplay()">C</button>
+        <button class="operator" onclick="inputSymbol('%')">%</button>
+        <button onclick="backspace()">⌫</button>
+        <button class="operator" onclick="inputSymbol('/')">÷</button>
+
+        <button onclick="inputSymbol('7')">7</button>
+        <button onclick="inputSymbol('8')">8</button>
+        <button onclick="inputSymbol('9')">9</button>
+        <button class="operator" onclick="inputSymbol('*')">×</button>
+
+        <button onclick="inputSymbol('4')">4</button>
+        <button onclick="inputSymbol('5')">5</button>
+        <button onclick="inputSymbol('6')">6</button>
+        <button class="operator" onclick="inputSymbol('-')">−</button>
+
+        <button onclick="inputSymbol('1')">1</button>
+        <button onclick="inputSymbol('2')">2</button>
+        <button onclick="inputSymbol('3')">3</button>
+        <button class="operator" onclick="inputSymbol('+')">+</button>
+
+        <button onclick="toggleSign()">+/-</button>
+        <button onclick="inputSymbol('0')">0</button>
+        <button onclick="inputSymbol('.')">.</button>
+        <button class="equal" onclick="calculate()">=</button>
+    </div>
+  </div>
 
 
-    
+
+  <script>
+  const toggle    = document.getElementById("modeToggle");
+  const body      = document.body;
+  const label     = document.getElementById("modeLabel");
+
+  toggle.addEventListener("change", () => {
+      body.classList.toggle("dark");
+      body.classList.toggle("light");
+      label.textContent = body.classList.contains("dark") ? "Switch to Light" : "Switch to Dark";
+  });
+  </script>
+
+
+
     <script type="text/javascript" src="{{ url_for('static', filename='function.js') }}"></script>
 </body>
 </html>
