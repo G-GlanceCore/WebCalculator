@@ -39,7 +39,7 @@ function calculate() {
 }
 
 // Replace numbers with their percentage equivalent
-// This turns any number%intonumber * 0.01 so we can calculate it.
+// This turns any number % into number * 0.01 so we can calculate it.
 function transformPercent(expr) {
     return expr.replace(/(\d+(\.\d+)?)%/g, (_, num) => `(${num}*0.01)`);
 }
