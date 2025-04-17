@@ -21,11 +21,11 @@ jobs:
         with:
           python-version: '3.x'
 
-      # Install dependencies (in your case, Flask)
-      - name: Install dependencies
+      # Install Flask directly (no need for requirements.txt)
+      - name: Install Flask
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install flask
 
       # Run the Python app (Flask application)
       - name: Run the Python WebCalculator
