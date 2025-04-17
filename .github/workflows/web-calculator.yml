@@ -29,4 +29,4 @@ jobs:
 
       # Run the Python app (Flask application)
       - name: Run the Python WebCalculator
-        run: python WebCalculator
+        run: python app.py
