@@ -1,15 +1,19 @@
 * {
   margin: 0;
   padding: 0;
-  
+  /*box-sizing: border-box;   default behavior.
+                              This changes how the browser calculates 
+                              the width and height of elements.
+                              By default, browsers use:
+  */
   }
   
 body {
     font-family: 'Arial', sans-serif;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    justify-content: center;  /* center horizontally (X axis) */
+    align-items: center;      /* center vertically (Y axis) */
+    height: 100vh;            /* full screen height */
     margin: 0;
     transition: background-color 0.3s, color 0.3s;
 }
