@@ -1,0 +1,21 @@
+.input-wrapper {
+  width: 95%;
+  position: relative;
+  display: inline-block;
+  font-family: monospace;
+}
+
+.fake-cursor {
+  position: absolute;
+  top: 6px;
+  width: 1px;
+  height: 3em;
+  background: black;
+  animation: blink 1s step-end infinite;
+  pointer-events: none;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
